@@ -30,7 +30,7 @@
 </html>
 
 <?php
-include 'dbc.php';
+include ('dbc.php');
 if(isset($_POST['submit']))
     {
         $fn= $_POST[ "firstn"];
