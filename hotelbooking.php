@@ -6,6 +6,7 @@ include 'dbc.php'; // Include your database connection
 <html>
 <head>
     <title>Hotel Booking System</title>
+
     <script>
         function showStep(step) {
             document.getElementById('step1').style.display = step === 1 ? 'block' : 'none';
@@ -13,6 +14,7 @@ include 'dbc.php'; // Include your database connection
             document.getElementById('step3').style.display = step === 3 ? 'block' : 'none';
         }
     </script>
+    
 </head>
 <body>
     <h1>Hotel Booking System</h1>
@@ -135,24 +137,28 @@ include 'dbc.php'; // Include your database connection
         echo "<script>showStep(3);</script>";
     } elseif (isset($_POST['step3'])) {
         // Process the booking
-        $name = $_POST['name'];
-        $email = $_POST['email'];
-        $roomtype = $_POST['roomtype'];
-        $cin = date('Y-m-d', strtotime($_POST['cin']));
-        $cout = date('Y-m-d', strtotime($_POST['cout']));
-
-        $query = "INSERT INTO bhotal (location, hotel, name, email, roomtype, cin, cout)
-                  VALUES (?, ?, ?, ?, ?, ?, ?)";
-        $stmt = $con->prepare($query);
-        $stmt->bind_param("sssssss", $_POST['location'], $_POST['hotel'], $name, $email, $roomtype, $cin, $cout);
-
-        if ($stmt->execute()) {
-            echo "<h2>Booking Confirmed!</h2>";
-            echo "Thank you for booking at {$_POST['hotel']} in {$_POST['location']}.<br>";
-        } else {
-            echo "<h2>Booking Failed</h2>";
+        
+            // Process the booking
+            $name = $_POST['name'];
+            $email = $_POST['email'];
+            $roomtype = $_POST['roomtype'];
+            $price = $_POST['price'];
+            $cin = date('Y-m-d', strtotime($_POST['cin']));
+            $cout = date('Y-m-d', strtotime($_POST['cout']));
+        
+            $query = "INSERT INTO bhotal (location, hotel, name, email, roomtype, price, cin, cout)
+                      VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            $stmt = $con->prepare($query);
+            $stmt->bind_param("ssssssss", $_POST['location'], $_POST['hotel'], $name, $email, $roomtype, $price, $cin, $cout);
+        
+            if ($stmt->execute()) {
+                echo "<h2>Booking Confirmed!</h2>";
+                echo "Thank you for booking at {$_POST['hotel']} in {$_POST['location']}.<br>";
+            } else {
+                echo "<h2>Booking Failed</h2>";
+            }
         }
-    }
+        
     ?>
 </body>
 </html>
