@@ -141,7 +141,7 @@ include 'dbc.php'; // Include your database connection
         $cin = date('Y-m-d', strtotime($_POST['cin']));
         $cout = date('Y-m-d', strtotime($_POST['cout']));
 
-        $query = "INSERT INTO bookings (location, hotel, name, email, roomtype, checkin, checkout)
+        $query = "INSERT INTO bhotal (location, hotel, name, email, roomtype, cin, cout)
                   VALUES (?, ?, ?, ?, ?, ?, ?)";
         $stmt = $con->prepare($query);
         $stmt->bind_param("sssssss", $_POST['location'], $_POST['hotel'], $name, $email, $roomtype, $cin, $cout);
